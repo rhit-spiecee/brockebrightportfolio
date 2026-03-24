@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brock Ebright — Civil Engineering Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1a2744;
+            --navy-light: #253560;
+            --red: #c0392b;
+            --cream: #f5f0e8;
+            --warm-white: #faf8f4;
+            --steel: #4a5568;
+            --light-steel: #e8edf5;
+            --gold: #c9a84c;
+            --text: #2c2c2c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--warm-white);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 4rem;
+            background: rgba(26,39,68,0.97);
+            backdrop-filter: blur(8px);
+            border-bottom: 2px solid var(--red);
+        }
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            letter-spacing: 2px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: rgba(245,240,232,0.75);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.25s;
+        }
+        .nav-links a:hover { color: var(--cream); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-left {
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 4rem 4rem 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-left::after {
+            content: '';
+            position: absolute;
+            top: 0; right: -60px; bottom: 0;
+            width: 120px;
+            background: var(--navy);
+            clip-path: polygon(0 0, 0 100%, 100% 100%);
+            z-index: 3;
+        }
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.3s forwards;
+        }
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 6vw, 6.5rem);
+            color: var(--cream);
+            line-height: 0.92;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.5s forwards;
+        }
+        .hero-name span { color: var(--red); }
+        .hero-title {
+            margin-top: 1.5rem;
+            font-family: 'DM Serif Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: rgba(245,240,232,0.65);
+            opacity: 0;
+            animation: fadeUp 0.7s 0.7s forwards;
+        }
+        .hero-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--red);
+            margin: 2rem 0;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.9s forwards;
+        }
+        .hero-blurb {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(245,240,232,0.7);
+            max-width: 380px;
+            opacity: 0;
+            animation: fadeUp 0.7s 1.1s forwards;
+        }
+        .hero-cta {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 1.3s forwards;
+        }
+        .btn-primary {
+            padding: 0.85rem 2rem;
+            background: var(--red);
+            color: white;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.2s;
+        }
+        .btn-primary:hover { background: #a93226; transform: translateY(-2px); }
+        .btn-outline {
+            padding: 0.85rem 2rem;
+            border: 1px solid rgba(245,240,232,0.3);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: border-color 0.25s, transform 0.2s;
+        }
+        .btn-outline:hover { border-color: var(--cream); transform: translateY(-2px); }
+
+        .hero-right {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            filter: grayscale(20%) contrast(1.05);
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+        }
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--navy) 0%, transparent 50%);
+            z-index: 1;
+            opacity: 0.4;
+        }
+        .hero-stat-strip {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(26,39,68,0.92);
+            display: flex;
+            justify-content: space-around;
+            padding: 1.5rem 2rem;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp 0.7s 1.5s forwards;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--red);
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.6);
+        }
+
+        /* ── SECTION COMMON ── */
+        section { padding: 6rem 5rem; }
+        .section-label {
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            color: var(--navy);
+            letter-spacing: 1px;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .section-intro {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--steel);
+            max-width: 620px;
+            margin-bottom: 3.5rem;
+        }
+
+        /* ── ABOUT ── */
+        #about {
+            background: var(--cream);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        .about-photo-wrap {
+            position: relative;
+        }
+        .about-photo-wrap img {
+            width: 100%;
+            max-width: 380px;
+            display: block;
+            filter: grayscale(10%);
+            box-shadow: 12px 12px 0 var(--navy);
+        }
+        .about-photo-wrap::before {
+            content: '';
+            position: absolute;
+            top: -16px; left: -16px;
+            right: 16px; bottom: 16px;
+            border: 2px solid var(--red);
+            z-index: 0;
+        }
+        .about-photo-wrap img { position: relative; z-index: 1; }
+        .about-text { padding-right: 2rem; }
+        .about-text p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--steel);
+            margin-bottom: 1.2rem;
+        }
+        .about-contact {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--navy);
+        }
+        .contact-icon {
+            width: 32px; height: 32px;
+            background: var(--navy);
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* ── SKILLS ── */
+        #skills {
+            background: var(--navy);
+            padding: 5rem;
+        }
+        #skills .section-title { color: var(--cream); }
+        #skills .section-label { color: var(--red); }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        .skill-pill {
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(245,240,232,0.15);
+            color: rgba(245,240,232,0.8);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: border-color 0.25s, background 0.25s, color 0.25s;
+            cursor: default;
+        }
+        .skill-pill:hover {
+            border-color: var(--red);
+            background: rgba(192,57,43,0.12);
+            color: var(--cream);
+        }
+
+        /* ── EXPERIENCE ── */
+        #experience { background: var(--warm-white); }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: var(--light-steel);
+        }
+        .timeline-item {
+            position: relative;
+            padding: 0 0 3.5rem 3rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -9px;
+            top: 6px;
+            width: 20px; height: 20px;
+            background: var(--navy);
+            border: 3px solid var(--red);
+            border-radius: 50%;
+        }
+        .timeline-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .timeline-date {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--red);
+            font-weight: 500;
+        }
+        .timeline-company {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            letter-spacing: 1px;
+        }
+        .timeline-role {
+            font-size: 0.9rem;
+            color: var(--steel);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .timeline-bullets {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .timeline-bullets li {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--steel);
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        .timeline-bullets li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--red);
+            font-size: 0.8rem;
+        }
+        .company-logo {
+            height: 36px;
+            object-fit: contain;
+            filter: grayscale(80%) opacity(0.6);
+            transition: filter 0.3s;
+        }
+        .company-logo:hover { filter: none; }
+
+        /* ── PROJECTS ── */
+        #projects {
+            background: var(--cream);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: white;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(26,39,68,0.07);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s, box-shadow 0.3s;
+        }
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(26,39,68,0.14);
+        }
+        .project-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(15%);
+            transition: filter 0.4s;
+        }
+        .project-card:hover .project-img { filter: grayscale(0); }
+        .project-body {
+            padding: 1.75rem;
+        }
+        .project-tag {
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--red);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .project-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+        .project-desc {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            color: var(--steel);
+        }
+
+        /* ── EDUCATION ── */
+        #education {
+            background: var(--navy);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .edu-left .section-title { color: var(--cream); }
+        .edu-detail {
+            margin-top: 2rem;
+            border-left: 3px solid var(--red);
+            padding-left: 1.5rem;
+        }
+        .edu-school {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--cream);
+            letter-spacing: 1px;
+        }
+        .edu-degree {
+            font-size: 0.95rem;
+            color: rgba(245,240,232,0.7);
+            margin: 0.25rem 0;
+        }
+        .edu-gpa {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.4rem 1rem;
+            border: 1px solid rgba(201,168,76,0.4);
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .coursework {
+            margin-top: 2.5rem;
+        }
+        .coursework-title {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.4);
+            margin-bottom: 1rem;
+        }
+        .course-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .course-tag {
+            padding: 0.3rem 0.85rem;
+            border: 1px solid rgba(245,240,232,0.15);
+            color: rgba(245,240,232,0.6);
+            font-size: 0.75rem;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .course-tag:hover { border-color: var(--red); color: var(--cream); }
+        .edu-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        .activities-card {
+            background: rgba(245,240,232,0.05);
+            border: 1px solid rgba(245,240,232,0.1);
+            padding: 2rem;
+            width: 100%;
+        }
+        .activities-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(245,240,232,0.65);
+            line-height: 1.5;
+        }
+        .activity-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #111827;
+            padding: 3rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid var(--red);
+        }
+        .footer-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: var(--cream);
+            letter-spacing: 2px;
+        }
+        .footer-contact {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.85rem;
+            color: rgba(245,240,232,0.5);
+        }
+        .footer-contact a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-contact a:hover { color: var(--cream); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            nav { padding: 1rem 2rem; }
+            .hero { grid-template-columns: 1fr; }
+            .hero-left { padding: 7rem 2rem 3rem; }
+            .hero-left::after { display: none; }
+            .hero-right { height: 300px; }
+            section { padding: 4rem 2rem; }
+            #about { grid-template-columns: 1fr; }
+            #education { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-logo">Brock Ebright</div>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-left">
+        <p class="hero-eyebrow">Civil Engineering Portfolio</p>
+        <h1 class="hero-name">Brock<br><span>Ebright</span></h1>
+        <p class="hero-title">Building the world, one project at a time.</p>
+        <div class="hero-divider"></div>
+        <p class="hero-blurb">Junior Civil Engineering student at Rose-Hulman Institute of Technology with hands-on internship experience from the field to the design table — and a genuine passion for how things get built.</p>
+        <div class="hero-cta">
+            <a href="#experience" class="btn-primary">See My Work</a>
+            <a href="#about" class="btn-outline">About Me</a>
+        </div>
+    </div>
+    <div class="hero-right">
+        <img src="Building.jpg" alt="Construction site" />
+        <div class="hero-stat-strip">
+            <div class="stat">
+                <span class="stat-num">3</span>
+                <span class="stat-label">Internships</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">3.32</span>
+                <span class="stat-label">GPA</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">'27</span>
+                <span class="stat-label">Graduating</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="about-photo-wrap">
+        <img src="Brock.webp" alt="Brock Ebright headshot" />
+    </div>
+    <div class="about-text">
+        <p class="section-label">Who I Am</p>
+        <h2 class="section-title">A Builder at Heart</h2>
+        <p>Hey — I'm Brock. I grew up in Eaton, Ohio, always wondering how the buildings, bridges, and overpasses around me actually came together. That curiosity turned into a degree path, and now I'm a junior at Rose-Hulman chasing a BS in Civil Engineering.</p>
+        <p>I lean toward the construction side of the industry, but I've genuinely enjoyed exploring every corner of the field — from sitting in on field operations during a sewage system build to managing submittals and scheduling for multi-million-dollar industrial projects at ARCO.</p>
+        <p>When I'm not crunching loads or reading structural drawings, you'll probably find me on the football field or spending time with my fraternity brothers at Phi Gamma Delta.</p>
+        <div class="about-contact">
+            <div class="contact-item">
+                <div class="contact-icon">@</div>
+                <span>ebrighb@rosehulman.edu</span>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">☎</div>
+                <span>937-733-3075</span>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <span>Eaton, OH &amp; Terre Haute, IN</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+    <p class="section-label">What I Bring</p>
+    <h2 class="section-title" style="color:var(--cream)">Tools &amp; Skills</h2>
+    <p class="section-intro" style="color:rgba(245,240,232,0.6);margin-bottom:2.5rem;">Whether it's AutoCAD, project scheduling, or just knowing how to read a set of drawings on-site, here's what I work with day-to-day.</p>
+    <div class="skills-grid">
+        <div class="skill-pill">AutoCAD</div>
+        <div class="skill-pill">Microsoft Projects</div>
+        <div class="skill-pill">Bluebeam</div>
+        <div class="skill-pill">GIS / ArcGIS</div>
+        <div class="skill-pill">MathCAD</div>
+        <div class="skill-pill">Microsoft Excel</div>
+        <div class="skill-pill">Microsoft Word</div>
+        <div class="skill-pill">PowerPoint</div>
+        <div class="skill-pill">Submittal Review</div>
+        <div class="skill-pill">Quantity Takeoffs</div>
+        <div class="skill-pill">Project Scheduling</div>
+        <div class="skill-pill">Blueprint Reading</div>
+        <div class="skill-pill">Concrete Ops</div>
+        <div class="skill-pill">Stormwater Mgmt</div>
+        <div class="skill-pill">Steel Design</div>
+        <div class="skill-pill">Earthwork Estimates</div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+    <p class="section-label">Where I've Worked</p>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-intro">Three internships, two companies, and a whole lot of real-world lessons that no classroom could fully teach.</p>
+
+    <div class="timeline">
+
+        <!-- ARCO -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-meta">
+                <span class="timeline-date">Summer 2024 – 2026</span>
+                <img src="ARCO.jpg" class="company-logo" alt="ARCO Design/Build" />
+            </div>
+            <div class="timeline-company">ARCO Design/Build</div>
+            <div class="timeline-role">Design/Build Manager Intern · Indianapolis, IN</div>
+            <ul class="timeline-bullets">
+                <li>Reviewed submittals across every aspect of active projects — from structural steel to site utilities — making sure nothing slipped through the cracks before heading to the field.</li>
+                <li>Acted as a communication bridge between subcontractors and superintendents, keeping everyone aligned on project details and timelines.</li>
+                <li>Built and maintained project schedules using Microsoft Projects, helping the team stay ahead of milestones.</li>
+                <li>Ran quantity takeoffs covering stormwater management systems, steel design, earthwork, and concrete/paving — feeding directly into bid estimates.</li>
+            </ul>
+        </div>
+
+        <!-- Ulliman-Schutte -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-meta">
+                <span class="timeline-date">Summer 2023</span>
+            </div>
+            <div class="timeline-company">Ulliman-Schutte Construction</div>
+            <div class="timeline-role">Field Intern Engineer · Moraine, OH</div>
+            <ul class="timeline-bullets">
+                <li>Got a ground-level view of how a water-treatment plant comes together — from mechanical systems to site logistics.</li>
+                <li>Sharpened my concrete work skills and got comfortable reading blueprints in a live construction environment.</li>
+                <li>Learned the rhythm of a real jobsite: how crews coordinate, how decisions get made, and how to stay safe and productive out in the field.</li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+    <p class="section-label">What I've Built</p>
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-intro">A mix of professional and academic work — each one taught me something different about what it takes to take a project from an idea to a real structure.</p>
+
+    <div class="projects-grid">
+
+        <!-- Industrial Distribution Center -->
+        <div class="project-card">
+            <img src="Building.jpg" class="project-img" alt="Industrial distribution center" />
+            <div class="project-body">
+                <div class="project-tag">ARCO Design/Build · Professional</div>
+                <h3 class="project-name">Industrial Distribution Center</h3>
+                <p class="project-desc">This one went the full distance. I was part of the team that estimated the building cost and put together the bid — and we won it. Once the project kicked off, I worked under the project manager to organize and review all submittals, coordinate the early-stage workflows, and help get the project moving from paper to site. Getting to see a bid turn into an actual construction project was a pretty rewarding experience.</p>
+            </div>
+        </div>
+
+        <!-- Dirt/Site Work -->
+        <div class="project-card">
+            <img src="Dirt.jpg" class="project-img" alt="Site earthwork" />
+            <div class="project-body">
+                <div class="project-tag">ARCO Design/Build · Field Experience</div>
+                <h3 class="project-name">Site Earthwork &amp; Grading Operations</h3>
+                <p class="project-desc">Working on earthwork takeoffs and stormwater management systems for industrial projects gave me a strong appreciation for what happens before the steel ever goes up. Getting the site right — grades, drainage, compaction — is what everything else depends on.</p>
+            </div>
+        </div>
+
+        <!-- Church Gymnasium -->
+        <div class="project-card">
+            <div style="height:220px;background:var(--navy);display:flex;align-items:center;justify-content:center;">
+                <span style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(245,240,232,0.15);letter-spacing:4px;">RHIT</span>
+            </div>
+            <div class="project-body">
+                <div class="project-tag">Rose-Hulman · Academic · Spring 2024</div>
+                <h3 class="project-name">Gymnasium Addition — Church in Terre Haute</h3>
+                <p class="project-desc">Our team delivered a preliminary design for a gymnasium addition to a local church — making sure it connected naturally with the existing structure both functionally and aesthetically. I learned a lot about client communication on this one: what questions to ask, what information actually matters to the owner, and how to present technical decisions in a way that makes sense to non-engineers.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+    <div class="edu-left">
+        <p class="section-label">Where I Study</p>
+        <h2 class="section-title" style="color:var(--cream)">Education</h2>
+        <div class="edu-detail">
+            <div class="edu-school">Rose-Hulman Institute of Technology</div>
+            <div class="edu-degree">B.S. Civil Engineering &nbsp;·&nbsp; Expected May 2027</div>
+            <div class="edu-degree">Terre Haute, Indiana</div>
+            <span class="edu-gpa">GPA: 3.32</span>
+        </div>
+        <div class="coursework">
+            <p class="coursework-title">Relevant Coursework</p>
+            <div class="course-tags">
+                <span class="course-tag">Structural Mechanics</span>
+                <span class="course-tag">Soil Mechanics</span>
+                <span class="course-tag">Hydraulics</span>
+                <span class="course-tag">Fluid Mechanics</span>
+                <span class="course-tag">Water Resources</span>
+                <span class="course-tag">Transportation</span>
+                <span class="course-tag">Engineering Surveying</span>
+                <span class="course-tag">Civil Eng. Materials</span>
+                <span class="course-tag">GIS</span>
+                <span class="course-tag">Sustainable CE</span>
+                <span class="course-tag">Thermodynamics</span>
+                <span class="course-tag">Mechanics of Materials</span>
+            </div>
+        </div>
+    </div>
+    <div class="edu-right">
+        <div class="activities-card">
+            <h3>Activities &amp; Involvement</h3>
+            <div class="activity-item">
+                <div class="activity-dot"></div>
+                <div><strong style="color:var(--cream)">Varsity Football</strong><br>Rose-Hulman · 2023–2025. Competing at the varsity level while keeping up a 3.32 GPA taught me more about time management and discipline than any class could.</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-dot"></div>
+                <div><strong style="color:var(--cream)">Phi Gamma Delta (FIJI)</strong><br>Member 2023–2027. Brotherhood, leadership, and community involvement that's been a big part of my college experience.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-name">Brock Ebright</div>
+    <div class="footer-contact">
+        <a href="mailto:ebrighb@rosehulman.edu">ebrighb@rosehulman.edu</a>
+        <a href="tel:9377333075">937-733-3075</a>
+        <span>Eaton, OH</span>
+    </div>
+</footer>
+
+<script>
+    // Scroll-triggered animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(el => {
+            if (el.isIntersecting) el.target.classList.add('visible');
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.timeline-item, .project-card').forEach(el => observer.observe(el));
+
+    // Stagger project cards
+    document.querySelectorAll('.project-card').forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.12}s`;
+    });
+</script>
+</body>
+</html>
